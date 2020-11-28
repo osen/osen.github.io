@@ -1,0 +1,322 @@
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flow - Iffe UI Library</title>
+    <style>
+
+body
+{
+  display: flex;
+  margin: 0%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11pt;
+}
+
+img
+{
+  border: none;
+}
+
+body::before
+{
+  content: '';
+  height: 100vh;
+  visibility: hidden;
+}
+
+column
+{
+  //border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 0%;
+  flex-grow: 1;
+}
+
+row
+{
+  //border: 1px solid blue;
+  display: flex;
+  flex-direction: row;
+  flex-basis: 0%;
+  flex-grow: 1;
+}
+
+spacer
+{
+  //border: 1px solid orange;
+  flex-basis: 0%;
+  flex-grow: 1;
+}
+
+.collapse
+{
+  //border: 1px solid green;
+  flex-basis: auto;
+  flex-grow: 0;
+}
+
+section
+{
+  //border: 1px solid black;
+  padding: 1rem;
+  margin: 0.5rem;
+  background: white;
+}
+
+dark_section
+{
+  //border: 1px solid black;
+  padding: 1rem;
+  margin: 0.5rem;
+
+  color: white;
+  background-image: url('images/noise_background.png');
+  background-repeat: repeat;
+}
+
+note_section
+{
+  border: 1px solid black;
+  padding: 1rem;
+  margin: 0.5rem;
+
+  color: white;
+  background: maroon;
+}
+
+note_title
+{
+  display: block;
+  font-weight: bold;
+  padding-bottom: 0.5rem;
+  text-decoration: underline;
+}
+
+#sidebar
+{
+  background-image: url('images/texture.png');
+  background-repeat: repeat;
+  //background: maroon; 
+  font-family: "Times New Roman", Times, serif;
+}
+
+a:link,
+a:visited
+{
+  color: maroon;
+  text-decoration: underline;
+}
+
+a:active
+{
+  color: gray;
+}
+
+note_section a:link,
+note_section a:visited
+{
+  color: white;
+  text-decoration: underline;
+}
+
+note_section a:active
+{
+  color: gray;
+}
+
+#sidebar a:link,
+#sidebar a:visited
+{
+  font-size: 16pt;
+  text-decoration: none;
+  color: white;
+}
+
+#sidebar a:hover
+{
+  text-decoration: underline;
+}
+
+#sidebar a:active
+{
+  color: gray;
+}
+
+    </style>
+  </head>
+  <body>
+    <column id="sidebar" class="collapse" style="padding: 0.5rem; border-right: 1px solid black">
+      <img src="images/logo.png" style="width: 150px">
+      <spacer style="max-height: 15vh"></spacer>
+      <column class="collapse" style="text-align: center">
+        <div><a href="index.html">Home</a></div>
+        <div><a href="todo.html">Download</a></div>
+        <div><a href="todo.html">Documentation</a></div>
+        <div><a href="todo.html">Tutorials</a></div>
+        <div><a href="todo.html">Contact</a></div>
+      </column>
+      <spacer style="border-bottom: 1px solid black"></spacer>
+      <label style="padding-top: 0.5rem; text-align: center; color: white; font-size: 12pt">
+Copyright &copy; 2020<br>Iffe Project
+      </label>
+    </column>
+    <spacer></spacer>
+    <column style="padding: 0.5rem; max-width: 45rem; min-width: 45rem">
+
+
+
+<section>
+<div style="border-bottom: 1px solid maroon; font-weight: bold; font-size: 2rem; margin-bottom: 0.5rem">The Flow Layout System</div>
+
+Iffe implements a unique layout system called Flow which works in a
+largely different manner to existing systems you may have encountered
+so far.  However it is intended to simplify the UI development process
+and provide a much smoother workflow for both initial development as
+well as future maintenance. For now, lets have a look at how it works
+and what kinds of functionality it provides.
+
+<br><br>
+
+The first step is to create a minimal program displaying a single window
+with a button. This can be done using the following code:
+
+<div style="margin-top: 1rem; margin-bottom: 1rem; border: 1px solid black; background: maroon; color: white"><pre>
+  #include &lt;iffe/iffe.h&gt;
+
+  widget(MainWindow, Init)
+  {
+    int dummy; /* We have no members yet! */
+  };
+
+  void OnInit(struct InitEvent *ev)
+  {
+    ref(Widget) button = WidgetAdd(ev->sender, Button);
+  }
+</pre></div>
+
+This is an entire program and Iffe does not require you to create a
+main function. Instead any Widget given the name MainWindow will be
+initialized and displayed as a top-level window. The program can be
+compiled as a normal C program using a command similar to:
+
+<div style="margin-top: 1rem; margin-bottom: 1rem; border: 1px solid black; background: maroon; color: white"><pre>
+  $ cc -oflow main.c -liffe -lX11
+</pre></div>
+
+This would result in a window appearing with the following layout.
+
+<div style="padding: 1rem; text-align: center"><img style="" src="images/flow/1_button_initial.png"></div>
+
+You will notice that by default the button will appear at the bottom
+right corner of the window if no positional instructions are given. This
+may seem strange at first (i.e other systems default to the top left)
+however after you start to use the system you may start to see that it
+offers a few conveniences.
+
+<br><br>
+
+Our next step is to move the button to the top left. Rather than set
+absolute coordinates (such as 0, 0), Flow works using instructions. So
+as the window is resized, these same instructions get rerun and the
+window layout is regenerated (albeit at a different size). For now we
+just move up via the following code:
+
+<div style="margin-top: 1rem; margin-bottom: 1rem; border: 1px solid black; background: maroon; color: white"><pre>
+  WidgetFlow(button, "^");
+</pre></div>
+
+As you may have guessed, directions are given within the WidgetFlow
+function via &lt; &gt; ^ v symbols.  As the following image demonstrates,
+the button will keep moving upwards until it hits either the edge of
+the window or another positioned Widget.
+
+<div style="padding: 1rem; text-align: center"><img style="" src="images/flow/2_button_up.png"></div>
+
+With that in place, we can then instruct the Widget to move to the
+left. Rather than writing multiple statements in C, the command can be
+collapsed as seen in the following code:
+
+<div style="margin-top: 1rem; margin-bottom: 1rem; border: 1px solid black; background: maroon; color: white"><pre>
+  WidgetFlow(button, "^<");
+</pre></div>
+
+So with this, the button will first move all the way to the top edge,
+and then all the way to the left edge as shown in the following:
+
+<div style="padding: 1rem; text-align: center"><img style="" src="images/flow/3_button_up_left.png"></div>
+
+With this in place, we will now create a new Text Box and provide it the
+same instructions to move up and left. This will place it neatly beside
+the original button. You will see that if we swap the instructions and
+move it left first and then up, it will result in being placed under the
+original button. This provides useful flexibility. The code for the Text
+Box should be as follows.
+
+<div style="margin-top: 1rem; margin-bottom: 1rem; border: 1px solid black; background: maroon; color: white"><pre>
+  ref(Widget) text = WidgetAdd(ev->sender, TextBox);
+  WidgetFlow(text, "^<");
+</pre></div>
+
+The following image shows the route that the Text Box will take. This
+should also be fairly easy to visualize compared to other approaches
+using many nested grid containers.
+
+<div style="padding: 1rem; text-align: center"><img style="" src="images/flow/4_text_up_left.png"></div>
+
+Next we are going to add a Separator Widget to close off the top row. For
+this we are going to do something slightly different. Instead of moving to
+the left, we provide an instruction for the Widget to expand left. this
+means it will keep growing towards the left until it touches the left
+edge. After this our usual instruction to move upwards is given.
+
+<div style="margin-top: 1rem; margin-bottom: 1rem; border: 1px solid black; background: maroon; color: white"><pre>
+  ref(Widget) sep = WidgetAdd(ev->sender, Separator);
+  WidgetFlow(text, "=<^");
+</pre></div>
+
+So again, you may notice that any directional instruction with a =
+symbol before it will expand in that direction rather than simply move.
+This process is demonstrated by the following image.
+
+<div style="padding: 1rem; text-align: center"><img style="" src="images/flow/5_separator_expand_left_up.png"></div>
+
+Note that the Separator Widget is by default 1x1 pixels in size. This
+allows us to expand it in the vertical direction as well as
+horizontal. The final result of this can be seen in the following image.
+
+<div style="padding: 1rem; text-align: center"><img style="" src="images/flow/6_separator_result.png"></div>
+<div style="padding: 1rem; text-align: center"><img style="" src="images/flow/7_textarea_expand_1.png"></div>
+<div style="padding: 1rem; text-align: center"><img style="" src="images/flow/8_textarea_expand_2.png"></div>
+<div style="padding: 1rem; text-align: center"><img style="" src="images/flow/9_textarea_expand_result.png"></div>
+<div style="padding: 1rem; text-align: center"><img style="" src="images/flow/10_resize.png"></div>
+
+</section>
+
+      <row style="border-top: 1px solid black; padding: 0.5rem">
+        <spacer></spacer>
+        <div>
+Last modified:
+2020-11-28
+
+        </div>
+      </row>
+    </column>
+    <spacer></spacer>
+  </body>
+</html>
+
+
+

@@ -1,15 +1,372 @@
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
 <html>
   <head>
-    <script>
-function onButtonClick()
+    <title> Iffe UI Library</title>
+    <style>
+
+body
 {
-  alert("Hello World!");
+  display: flex;
+  margin: 0%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11pt;
 }
 
-    </script>
+img
+{
+  border: none;
+}
+
+body::before
+{
+  content: '';
+  height: 100vh;
+  visibility: hidden;
+}
+
+column
+{
+  //border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 0%;
+  flex-grow: 1;
+}
+
+row
+{
+  //border: 1px solid blue;
+  display: flex;
+  flex-direction: row;
+  flex-basis: 0%;
+  flex-grow: 1;
+}
+
+spacer
+{
+  //border: 1px solid orange;
+  flex-basis: 0%;
+  flex-grow: 1;
+}
+
+.collapse
+{
+  //border: 1px solid green;
+  flex-basis: auto;
+  flex-grow: 0;
+}
+
+section
+{
+  //border: 1px solid black;
+  padding: 1rem;
+  margin: 0.5rem;
+  background: white;
+}
+
+dark_section
+{
+  //border: 1px solid black;
+  padding: 1rem;
+  margin: 0.5rem;
+
+  color: white;
+  background-image: url('images/noise_background.png');
+  background-repeat: repeat;
+}
+
+note_section
+{
+  border: 1px solid black;
+  padding: 1rem;
+  margin: 0.5rem;
+
+  color: white;
+  background: maroon;
+}
+
+note_title
+{
+  display: block;
+  font-weight: bold;
+  padding-bottom: 0.5rem;
+  text-decoration: underline;
+}
+
+#sidebar
+{
+  background-image: url('images/texture.png');
+  background-repeat: repeat;
+  //background: maroon; 
+  font-family: "Times New Roman", Times, serif;
+}
+
+a:link,
+a:visited
+{
+  color: maroon;
+  text-decoration: underline;
+}
+
+a:active
+{
+  color: gray;
+}
+
+note_section a:link,
+note_section a:visited
+{
+  color: white;
+  text-decoration: underline;
+}
+
+note_section a:active
+{
+  color: gray;
+}
+
+#sidebar a:link,
+#sidebar a:visited
+{
+  font-size: 16pt;
+  text-decoration: none;
+  color: white;
+}
+
+#sidebar a:hover
+{
+  text-decoration: underline;
+}
+
+#sidebar a:active
+{
+  color: gray;
+}
+
+    </style>
   </head>
   <body>
-    Hello
-    <input onclick="onButtonClick();" type="button" value="Click me"></input>
+    <column id="sidebar" class="collapse" style="padding: 0.5rem; border-right: 1px solid black">
+      <img src="images/logo.png" style="width: 150px">
+      <spacer style="max-height: 15vh"></spacer>
+      <column class="collapse" style="text-align: center">
+        <div><a href="index.html">Home</a></div>
+        <div><a href="todo.html">Download</a></div>
+        <div><a href="todo.html">Documentation</a></div>
+        <div><a href="todo.html">Tutorials</a></div>
+        <div><a href="todo.html">Contact</a></div>
+      </column>
+      <spacer style="border-bottom: 1px solid black"></spacer>
+      <label style="padding-top: 0.5rem; text-align: center; color: white; font-size: 12pt">
+Copyright &copy; 2020<br>Iffe Project
+      </label>
+    </column>
+    <spacer></spacer>
+    <column style="padding: 0.5rem; max-width: 45rem; min-width: 45rem">
+
+
+
+<section style="text-align: center">
+  <img style="width: 18rem" src="images/logo_large.png">
+</section>
+
+<section>
+<div style="border-bottom: 1px solid maroon; font-weight: bold; font-size: 2rem; margin-bottom: 0.5rem">Welcome to the Iffe UI Library</div>
+
+Iffe is a UI library for the C programming language. It aims to keep
+things simple and fun. It was born out of frustration of current UI
+systems which are often too heavy in terms of dependencies, they lack in
+portability and maintenance or they are too awkward to use, relying on
+multiple disparate layout scripts resulting in poor workflow or requiring
+too much boiler-plate code for tasks that should be trivial. Iffe has
+a number of project aims, including:
+
+<ul>
+  <li style="margin: 0.5rem 0">
+
+<span style="font-weight: bold">C89+</span> ensures that the code is kept simple and maximizes portability. Even
+to older platforms.
+
+  </li>
+  <li style="margin: 0.5rem 0">
+
+<span style="font-weight: bold">Object-oriented via MACROs</span> helps to organise the project in a
+way that many developers would expect.
+
+  </li>
+  <li style="margin: 0.5rem 0">
+
+<span style="font-weight: bold">Minimize dependencies</span> ensures that the code remains light,
+portable and easy to build and maintain.
+
+  </li>
+  <li style="margin: 0.5rem 0">
+
+<span style="font-weight: bold">Focus on maintainability</span> reduces bitrot and ensures that we
+can rely on this software for many years to come.
+
+  </li>
+  <li style="margin: 0.5rem 0">
+
+<span style="font-weight: bold">Single static library</span> helps avoid versioning issues and prevents
+package managers from making a mess.
+
+  </li>
+  <li style="margin: 0.5rem 0">
+
+<span style="font-weight: bold">Provide simple layout system</span> and avoid tooling ensures that
+building UIs remains fast and fun.
+
+  </li>
+  <li style="margin: 0.5rem 0">
+
+<span style="font-weight: bold">Memory testing in debug builds</span> allows you to focus on developing
+great software rather than spending your time finding bugs.
+
+  </li>
+</ul>
+
+Check out the <a href="todo.html">Tutorials</a> page to get started using
+Iffe and to see some of these concepts put into practice.
+
+</section>
+
+<dark_section>
+
+<span style="font-weight: bold">Note:</span> Please keep in mind that Iffe is still in the very early
+stages of development. Don't expect it to provide replacements of a
+number of useful UI components quite yet. However due to the nature of
+Iffe, many of these should be easy to implement and any contributions
+are greatly appreciated!
+
+</dark_section>
+
+<note_section>
+<div style="font-weight: bold; font-size: 1.5rem; margin-bottom: 0.5rem">Introducing the Flow Layout System</div>
+
+Iffe takes a new approach to layout management. Whereas traditional
+systems usually rely on a grid based layout (i.e CSS FlexBox, JGridBag,
+VBox/HBox) or anchoring (i.e Winforms, Motif), this alternative approach
+(called Flow) intends to solve a number of these inherent issues. For
+example:
+
+<ul>
+  <li style="margin: 0.5rem 0">
+
+No tooling should be required, instead the layout can be defined
+separately from the logic but in the same homogeneous C language as the
+rest of the software. There really is no need for external XML or JSON
+files when C can serve the task in a simpler way.
+
+  </li>
+  <li style="margin: 0.5rem 0">
+
+Future maintenance should be simple. No need to maintain old build
+systems just to support a specific preprocessor should be needed. Instead
+a standards compliant C compiler should be all that is necessary.
+
+  </li>
+  <li style="margin: 0.5rem 0">
+
+Revisiting previous projects and adding new layout should be kept
+simple. No need to be overwhelmed by complex nested hierarchies. Flow
+should be quick to follow and natural to implement.
+
+  </li>
+</ul>
+
+Check out the <a href="flow.html">Flow Tutorial</a> for more information
+and then take a look at some of the examples.  </note_section>
+
+<section>
+<div style="font-weight: bold; font-size: 1.5rem; margin-bottom: 0.5rem">Introducing the Stent Memory Checker (libstent)</div>
+
+Looking at the C programming language from a platform point of view,
+it certainly has some benefits such as great performance, reduced
+dependencies and fantastic lifespan ranging from ancient platforms such
+as supporting early UNIX and MS/PC-DOS all the way to modern, mobile and
+experimental platforms. Even new platforms coming out today still see C
+as a first class citizen. However as a programming language it has a few
+potential limitations. One of the most crucial is its manual approach
+to memory management. Whilst this has many useful applications, it can
+often make it too easy for a developer to make mistakes and add hard
+to find memory related bugs to their program. These typically manifest
+themselves as use-after-free, dangling pointers or uninitialized variable
+errors. The Stent memory checker intends to solve this by providing the
+following features:
+
+<ul>
+  <li style="margin: 0.5rem 0">
+
+100% checked heap usage in debug builds ensures that the program
+aborts with useful information about the mistake immediately and in a
+deterministic manner.
+
+  </li>
+  <li style="margin: 0.5rem 0">
+
+Type-safe weak pointer in the debug build (similar to C++
+std::weak_ptr&lt;T&gt;). Once testing has been done, this can be stripped
+in the release build ensuring there is zero additional overhead.
+
+  </li>
+  <li style="margin: 0.5rem 0">
+
+Type-safe dynamic arrays (similar to C++ std::vector&lt;T&gt;). In both
+the debug and release builds this container greatly simplifies memory
+access in heap arrays and eliminates a range of programming mistakes.
+
+  </li>
+  <li style="margin: 0.5rem 0">
+
+Leak checker in the debug build notifies the programmer upon exit of any
+allocations which were not subsequently freed along with their type and
+location in code where they were allocated.
+
+  </li>
+  <li style="margin: 0.5rem 0">
+
+100% portable C89+. No need for a specific compiler or platform. For
+example, no reliance on address sanitation support in your compiler or
+the ability to lock virtual memory.
+
+  </li>
+</ul>
+
+Stent is built-in and deeply integrated with Iffe. However it is also
+encouraged that it is used for many C projects, even those entirely
+unrelated to UI. Of course Iffe can also be used without the memory
+checker. In this case standard raw pointers can be used as normal.
+
+Check out the Stent tutorial for detailed information on how it works. All
+the examples also use Stent but if you want to use Iffe directly without
+it, you can check out this specific example here.
+
+</section>
+
+      <row style="border-top: 1px solid black; padding: 0.5rem">
+        <spacer></spacer>
+        <div>
+Last modified:
+2020-11-28
+
+        </div>
+      </row>
+    </column>
+    <spacer></spacer>
   </body>
 </html>
+
+
+
